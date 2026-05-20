@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>模型广场 | NexaGate</title>
+    <meta name="description" content="NexaGate 模型广场，展示当前账号可用模型、能力说明和调用价格。" />
+    <link rel="canonical" href="" />
+    <meta property="og:title" content="模型广场 | NexaGate" />
+    <meta property="og:description" content="查看 NexaGate 当前开放的模型目录、能力说明和调用价格。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="./assets/og-nexagate.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="./assets/og-nexagate.png" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="NexaGate home">
+        <span class="brand-mark">N</span>
+        <span>NexaGate</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="./index.html" data-zh="首页" data-en="Home">首页</a>
+        <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a class="active" href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+      </nav>
+      <div class="topbar-actions">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="button-ghost" href="./auth.html?next=console.html" data-logged-out data-zh="进入控制台" data-en="Console">进入控制台</a>
+        <a class="button-ghost hidden" href="./console.html" data-logged-in data-zh="进入控制台" data-en="Console">进入控制台</a>
+        <button class="button-ghost hidden" type="button" data-logged-in data-logout data-zh="退出登录" data-en="Sign out">退出登录</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="page-title">
+        <div>
+          <h1 data-zh="模型广场" data-en="Model plaza">模型广场</h1>
+          <p data-zh="这里展示 NexaGate 当前开放的模型目录。登录后可以在控制台查看你的账号权限并创建 API Key。" data-en="Browse the public NexaGate model catalog. Sign in to view your account access and create API keys.">这里展示 NexaGate 当前开放的模型目录。登录后可以在控制台查看你的账号权限并创建 API Key。</p>
+        </div>
+        <aside class="model-hero-card" aria-label="Model access summary">
+          <span data-zh="当前入口" data-en="Endpoint">当前入口</span>
+          <code data-base-url>https://api.nexagate.local/v1</code>
+          <div>
+            <strong>Chat</strong>
+            <strong>Reasoning</strong>
+            <strong>Fast</strong>
+          </div>
+        </aside>
+      </section>
+
+      <section class="model-toolbar">
+        <div>
+          <strong data-zh="可用模型" data-en="Available models">可用模型</strong>
+          <p data-zh="按模型名或能力标签搜索，模型名称可直接填入请求里的 model 参数。" data-en="Search by model name or capability tag. Model names can be used directly as the model parameter.">按模型名或能力标签搜索，模型名称可直接填入请求里的 model 参数。</p>
+        </div>
+        <input class="search" type="search" placeholder="搜索模型" data-placeholder-zh="搜索模型" data-placeholder-en="Search models" data-model-search />
+      </section>
+
+      <section class="model-grid" id="modelPlazaGrid">
+        <article class="model-card">
+          <span data-zh="加载中" data-en="Loading">加载中</span>
+          <strong>-</strong>
+          <p data-zh="正在读取当前账号可用模型。" data-en="Loading enabled models for this account.">正在读取当前账号可用模型。</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

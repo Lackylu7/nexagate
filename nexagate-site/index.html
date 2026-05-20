@@ -1,0 +1,215 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NexaGate | AI API 网关</title>
+    <meta name="description" content="NexaGate 是面向开发者的 AI API 网关，提供统一入口、API Key、模型广场、余额和调用日志。" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#101110" />
+    <meta property="og:title" content="NexaGate | AI API 网关" />
+    <meta property="og:description" content="统一管理模型调用、API Key、余额和日志。" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="./assets/og-nexagate.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="./assets/og-nexagate.png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="./index.html" aria-label="NexaGate home">
+          <span class="brand-mark">N</span>
+          <span>NexaGate</span>
+        </a>
+        <nav class="nav-links" aria-label="主导航">
+          <a class="active" href="./index.html" data-zh="首页" data-en="Home">首页</a>
+          <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+          <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+          <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+          <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+        </nav>
+        <div class="topbar-actions">
+          <div class="language-switch" aria-label="Language switch">
+            <button type="button" data-lang="zh">中</button>
+            <button type="button" data-lang="en">EN</button>
+          </div>
+          <a class="button-ghost" href="./auth.html" data-logged-out data-zh="登录" data-en="Sign in">登录</a>
+          <a class="button" href="./auth.html?next=console.html" data-logged-out data-zh="注册" data-en="Sign up">注册</a>
+          <a class="button-ghost hidden" href="./console.html" data-logged-in data-zh="进入控制台" data-en="Open console">进入控制台</a>
+          <button class="button-ghost hidden" type="button" data-logged-in data-logout data-zh="退出登录" data-en="Sign out">退出登录</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <h1>NexaGate</h1>
+            <p
+              class="hero-copy"
+              data-zh="统一一切模型调用，简化每一次集成。"
+              data-en="Unify model calls and simplify every integration."
+            >
+              统一一切模型调用，简化每一次集成。
+            </p>
+            <p
+              class="hero-note"
+              data-zh="NexaGate 是面向开发者的 AI API 网关，把主流模型、API Key、余额、日志和接入文档放在一个清晰入口里。"
+              data-en="NexaGate is an AI API gateway for developers, bringing models, API keys, balance, logs, and integration docs into one clear entry point."
+            >
+              NexaGate 是面向开发者的 AI API 网关，把主流模型、API Key、余额、日志和接入文档放在一个清晰入口里。
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="./auth.html?next=console.html" data-zh="开始使用" data-en="Start">开始使用</a>
+              <a class="button-ghost" href="./docs.html" data-zh="查看文档" data-en="Read docs">查看文档</a>
+            </div>
+            <div class="base-copy">
+              <span>Base URL</span>
+              <code id="homeBaseUrl" data-base-url>https://api.nexagate.local/v1</code>
+              <button class="button-soft" type="button" data-copy-target="homeBaseUrl" data-zh="复制网址" data-en="Copy URL">复制网址</button>
+            </div>
+            <div class="hero-metrics" aria-label="NexaGate highlights">
+              <span><strong>Base URL</strong><small data-zh="替换基础网址" data-en="replace endpoint">替换基础网址</small></span>
+              <span><strong>API Key</strong><small data-zh="创建调用密钥" data-en="create a key">创建调用密钥</small></span>
+              <span><strong>Model</strong><small data-zh="选择模型名称" data-en="choose model">选择模型名称</small></span>
+            </div>
+          </div>
+
+          <aside class="gateway-panel" aria-label="NexaGate product preview">
+            <div class="product-window">
+              <div class="window-top">
+                <span></span><span></span><span></span>
+                <code>/v1/chat/completions</code>
+              </div>
+              <div class="request-preview">
+                <small>REQUEST</small>
+                <strong>POST /v1/chat/completions</strong>
+                <p>model: deepseek-v4-flash</p>
+              </div>
+              <div class="route-preview" aria-hidden="true">
+                <span>App</span>
+                <i></i>
+                <strong>NexaGate</strong>
+                <i></i>
+                <span>Model</span>
+              </div>
+              <div class="preview-grid">
+                <div>
+                  <small>API Key</small>
+                  <strong>sk-ng-•••• 8F3A</strong>
+                </div>
+                <div>
+                  <small>Balance</small>
+                  <strong>$128.60</strong>
+                </div>
+                <div>
+                  <small>Status</small>
+                  <strong>200 OK</strong>
+                </div>
+                <div>
+                  <small>Latency</small>
+                  <strong>42ms</strong>
+                </div>
+              </div>
+            </div>
+            <h2 data-zh="接入只需要三步。" data-en="Connect in three steps.">接入只需要三步。</h2>
+            <div class="gateway-list">
+              <article class="gateway-step">
+                <span>1</span>
+                <div>
+                  <strong data-zh="替换基础网址" data-en="Replace base URL">替换基础网址</strong>
+                  <p data-zh="把 SDK 的 baseURL 改成本站 API 地址。" data-en="Point your SDK baseURL to the NexaGate API endpoint.">把 SDK 的 baseURL 改成本站 API 地址。</p>
+                </div>
+              </article>
+              <article class="gateway-step">
+                <span>2</span>
+                <div>
+                  <strong data-zh="创建 API Key" data-en="Create an API key">创建 API Key</strong>
+                  <p data-zh="登录控制台，生成你自己的调用密钥。" data-en="Sign in to the console and generate your own key.">登录控制台，生成你自己的调用密钥。</p>
+                </div>
+              </article>
+              <article class="gateway-step">
+                <span>3</span>
+                <div>
+                  <strong data-zh="选择模型并调用" data-en="Choose a model and call">选择模型并调用</strong>
+                  <p data-zh="在模型广场查看可用模型，用文档里的示例发起请求。" data-en="Browse enabled models and use the docs examples to send requests.">在模型广场查看可用模型，用文档里的示例发起请求。</p>
+                </div>
+              </article>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="一个入口，管住调用全流程。" data-en="One gateway for the whole request flow.">一个入口，管住调用全流程。</h2>
+              <p data-zh="把接入、密钥、余额、模型权限和日志放在同一个控制台里，用户不用理解底层渠道。" data-en="Keep endpoint setup, keys, balance, model access, and logs in one console so users do not need to understand the underlying routes.">把接入、密钥、余额、模型权限和日志放在同一个控制台里，用户不用理解底层渠道。</p>
+            </div>
+            <a class="button-soft" href="./models.html" data-zh="查看模型广场" data-en="View models">查看模型广场</a>
+          </div>
+          <div class="section-grid">
+            <article class="card">
+              <strong data-zh="统一入口" data-en="Unified endpoint">统一入口</strong>
+              <p data-zh="一个 Base URL，对接多个模型服务。" data-en="One base URL for multiple model services.">一个 Base URL，对接多个模型服务。</p>
+            </article>
+            <article class="card">
+              <strong>API Key</strong>
+              <p data-zh="按项目创建、限额、停用，避免混用。" data-en="Create, cap, and disable keys per project.">按项目创建、限额、停用，避免混用。</p>
+            </article>
+            <article class="card">
+              <strong data-zh="余额与日志" data-en="Balance and logs">余额与日志</strong>
+              <p data-zh="查看余额、请求记录、模型消耗和调用状态。" data-en="Track balance, request history, model usage, and status.">查看余额、请求记录、模型消耗和调用状态。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section product-section">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="给开发者看的，不是给管理员看的。" data-en="Built for developers, not operators.">给开发者看的，不是给管理员看的。</h2>
+              <p data-zh="用户只需要复制地址、创建 Key、选择模型。更复杂的渠道和倍率留在管理员后台。" data-en="Users only copy the endpoint, create a key, and choose a model. Channels and ratios stay in the admin backend.">用户只需要复制地址、创建 Key、选择模型。更复杂的渠道和倍率留在管理员后台。</p>
+            </div>
+          </div>
+          <div class="product-split">
+            <div class="code-block showcase-code">
+              <button class="copy-button" type="button" data-copy-target="homeCurlCode" data-zh="复制" data-en="Copy">复制</button>
+              <pre><code id="homeCurlCode" data-curl-example></code></pre>
+            </div>
+            <div class="feature-rail">
+              <article>
+                <span>01</span>
+                <strong data-zh="地址统一" data-en="Unified endpoint">地址统一</strong>
+                <p data-zh="同一个 Base URL 承接不同模型调用。" data-en="One Base URL handles different model calls.">同一个 Base URL 承接不同模型调用。</p>
+              </article>
+              <article>
+                <span>02</span>
+                <strong data-zh="余额可控" data-en="Controlled balance">余额可控</strong>
+                <p data-zh="按调用消耗扣费，余额不足自动停止。" data-en="Usage is metered and stops when balance is insufficient.">按调用消耗扣费，余额不足自动停止。</p>
+              </article>
+              <article>
+                <span>03</span>
+                <strong data-zh="日志清楚" data-en="Clear logs">日志清楚</strong>
+                <p data-zh="请求、模型、tokens 和费用都有记录。" data-en="Requests, models, tokens, and costs are traceable.">请求、模型、tokens 和费用都有记录。</p>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>NexaGate</span>
+        <nav aria-label="Footer navigation">
+          <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+          <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+          <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+          <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

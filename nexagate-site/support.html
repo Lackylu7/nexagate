@@ -1,0 +1,70 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>支持 | NexaGate</title>
+    <meta name="description" content="联系 NexaGate 支持，处理账号、充值、API Key 和模型调用问题。" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="NexaGate home">
+        <span class="brand-mark">N</span>
+        <span>NexaGate</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="./index.html" data-zh="首页" data-en="Home">首页</a>
+        <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+        <a class="active" href="./support.html" data-zh="支持" data-en="Support">支持</a>
+      </nav>
+      <div class="header-actions">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="ghost-link" href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a class="primary-link" href="./auth.html" data-zh="开始使用" data-en="Start">开始使用</a>
+      </div>
+    </header>
+    <main class="support-page">
+      <section class="subpage-hero compact">
+        <p class="section-label" data-zh="支持" data-en="Support">支持</p>
+        <h1 data-zh="遇到问题，直接发给我们。" data-en="Get help with your account and API calls.">遇到问题，直接发给我们。</h1>
+        <p data-zh="账号、充值、API Key、模型权限或调用失败，都可以在这里提交。" data-en="Submit account, billing, API key, model access, or request failure questions here.">账号、充值、API Key、模型权限或调用失败，都可以在这里提交。</p>
+      </section>
+      <section class="section support-grid">
+        <form class="support-form" data-submit-form>
+          <label><span data-zh="姓名" data-en="Name">姓名</span><input name="name" placeholder="你的称呼" data-placeholder-zh="你的称呼" data-placeholder-en="Your name" /></label>
+          <label>Email<input type="email" name="email" placeholder="name@company.com" /></label>
+          <label><span data-zh="问题类型" data-en="Topic">问题类型</span><select name="topic"><option data-zh="充值与余额" data-en="Billing">充值与余额</option><option>API Key</option><option data-zh="速率限制" data-en="Rate limit">速率限制</option><option data-zh="模型调用" data-en="Model route">模型调用</option></select></label>
+          <label><span data-zh="问题描述" data-en="Message">问题描述</span><textarea name="message" rows="6" placeholder="描述你遇到的问题" data-placeholder-zh="描述你遇到的问题" data-placeholder-en="Tell us what happened"></textarea></label>
+          <button class="primary-button" type="submit" data-zh="提交工单" data-en="Send request">提交工单</button>
+        </form>
+        <div class="support-cards">
+          <article><strong data-zh="充值与余额" data-en="Billing">充值与余额</strong><p data-zh="处理余额、发票、退款和额度申请。" data-en="Prepaid balance, invoices, refunds, and limit reviews.">处理余额、发票、退款和额度申请。</p></article>
+          <article><strong data-zh="API 调用" data-en="API calls">API 调用</strong><p data-zh="处理模型权限、请求失败、备用模型和调用行为问题。" data-en="Model access, request failures, fallback, and provider-specific behavior.">处理模型权限、请求失败、备用模型和调用行为问题。</p></article>
+          <article><strong data-zh="安全" data-en="Security">安全</strong><p data-zh="处理 Key 泄露、异常用量、账号暂停和安全报告。" data-en="Key exposure, suspicious usage, account pauses, and abuse reports.">处理 Key 泄露、异常用量、账号暂停和安全报告。</p></article>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>NexaGate</strong>
+        <p data-zh="面向开发者的 AI API 网关。" data-en="AI API gateway for developers.">面向开发者的 AI API 网关。</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./status.html" data-zh="状态" data-en="Status">状态</a>
+        <a href="./security.html" data-zh="安全" data-en="Security">安全</a>
+        <a href="./privacy.html" data-zh="隐私" data-en="Privacy">隐私</a>
+      </nav>
+    </footer>
+  </body>
+</html>

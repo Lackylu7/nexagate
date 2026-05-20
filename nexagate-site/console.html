@@ -1,0 +1,602 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>控制台 | NexaGate</title>
+    <meta name="description" content="NexaGate 用户控制台，用于管理 API Key、余额、模型权限、调用日志和测试请求。" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body data-protected="true">
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="NexaGate home">
+        <span class="brand-mark">N</span>
+        <span>NexaGate</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="./index.html" data-zh="首页" data-en="Home">首页</a>
+        <a class="active" href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+      </nav>
+      <div class="topbar-actions">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="button-ghost hidden" href="#" data-admin-only data-admin-backend data-zh="进入后台" data-en="Open backend">进入后台</a>
+        <button class="button-ghost" type="button" data-refresh-console data-zh="刷新" data-en="Refresh">刷新</button>
+        <button class="button-ghost" type="button" data-logout data-zh="退出登录" data-en="Sign out">退出登录</button>
+      </div>
+    </header>
+
+    <div class="app-layout">
+      <aside class="sidebar">
+        <nav aria-label="Console sections">
+          <a class="active" href="#overview" data-zh="总览" data-en="Overview">总览</a>
+          <a href="#keys" data-zh="API Key" data-en="API keys">API Key</a>
+          <a href="#usage" data-zh="用量统计" data-en="Usage">用量统计</a>
+          <a href="#balance" data-zh="余额充值" data-en="Balance">余额充值</a>
+          <a href="#models" data-zh="模型权限" data-en="Models">模型权限</a>
+          <a href="#integration" data-zh="接入配置" data-en="Integration">接入配置</a>
+          <a href="#logs" data-zh="调用日志" data-en="Logs">调用日志</a>
+          <a href="#playground">Playground</a>
+          <a href="#account" data-zh="账号资料" data-en="Account">账号资料</a>
+          <a href="#settings" data-zh="设置" data-en="Settings">设置</a>
+          <a class="hidden" href="./profit.html" data-admin-only data-zh="利润看板" data-en="Profit">利润看板</a>
+        </nav>
+        <div class="sidebar-note">
+          <strong>Base URL</strong><br />
+          <span data-base-url>https://api.nexagate.local/v1</span>
+        </div>
+      </aside>
+
+      <main class="console-main">
+        <section class="page-title" id="overview">
+          <div>
+            <h1 data-zh="控制台" data-en="Console">控制台</h1>
+            <p>
+              <span data-zh="当前账号：" data-en="Current account: ">当前账号：</span>
+              <strong data-session-account>Guest</strong>
+            </p>
+          </div>
+          <div class="inline-actions">
+            <button class="button-ghost" type="button" data-open-dialog="balanceDialog" data-zh="充值余额" data-en="Add balance">充值余额</button>
+            <button class="button" type="button" data-open-dialog="keyDialog" data-zh="创建 API Key" data-en="Create API key">创建 API Key</button>
+          </div>
+        </section>
+
+        <section class="console-command" aria-label="Console quick actions">
+          <article>
+            <span>Base URL</span>
+            <code data-base-url>https://api.nexagate.local/v1</code>
+            <button class="button-soft" type="button" data-copy-target="commandBaseUrl" data-zh="复制" data-en="Copy">复制</button>
+            <code class="hidden" id="commandBaseUrl" data-base-url>https://api.nexagate.local/v1</code>
+          </article>
+          <article>
+            <span data-zh="下一步" data-en="Next step">下一步</span>
+            <strong data-zh="创建项目 API Key" data-en="Create a project API key">创建项目 API Key</strong>
+            <button class="button" type="button" data-open-dialog="keyDialog" data-zh="创建" data-en="Create">创建</button>
+          </article>
+          <article>
+            <span data-zh="调用状态" data-en="Gateway status">调用状态</span>
+            <strong data-zh="等待你的第一次请求" data-en="Waiting for your first request">等待你的第一次请求</strong>
+            <a class="button-ghost" href="./docs.html#quickstart" data-zh="看示例" data-en="Example">看示例</a>
+          </article>
+        </section>
+
+        <section class="console-section" id="usage">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="用量统计" data-en="Usage">用量统计</h2>
+              <p data-zh="从调用日志汇总当前账号的消耗、请求峰值和分钟 token 峰值。" data-en="Summarized from usage logs: spend, request peak, and token peak.">从调用日志汇总当前账号的消耗、请求峰值和分钟 token 峰值。</p>
+            </div>
+          </div>
+          <div class="metric-grid">
+            <article class="console-card">
+              <span data-zh="累计扣费" data-en="Total spend">累计扣费</span>
+              <p class="metric" id="usageSpendValue">$0.00</p>
+              <p data-zh="当前账号真实调用累计消耗。" data-en="Total metered usage for this account.">当前账号真实调用累计消耗。</p>
+            </article>
+            <article class="console-card">
+              <span>RPM</span>
+              <p class="metric" id="usageRpmValue">0</p>
+              <p data-zh="按日志统计的分钟请求峰值。" data-en="Peak requests per minute from logs.">按日志统计的分钟请求峰值。</p>
+            </article>
+            <article class="console-card">
+              <span>TPM</span>
+              <p class="metric" id="usageTpmValue">0</p>
+              <p data-zh="按日志统计的分钟 token 峰值。" data-en="Peak tokens per minute from logs.">按日志统计的分钟 token 峰值。</p>
+            </article>
+            <article class="console-card">
+              <span data-zh="历史请求" data-en="Requests">历史请求</span>
+              <p class="metric" id="requestCountValue">0</p>
+              <p data-zh="账号记录中的请求次数。" data-en="Request count stored on the account.">账号记录中的请求次数。</p>
+            </article>
+          </div>
+          <div class="usage-chart-card">
+            <div>
+              <strong data-zh="近 7 次调用消耗" data-en="Last 7 usage samples">近 7 次调用消耗</strong>
+              <p data-zh="按调用日志展示最近请求的扣费走势。" data-en="Recent request cost trend from usage logs.">按调用日志展示最近请求的扣费走势。</p>
+            </div>
+            <div class="usage-chart" id="usageChart" aria-label="Usage chart"></div>
+          </div>
+        </section>
+
+        <section class="metric-grid" aria-label="Account metrics">
+          <article class="console-card">
+            <span data-zh="可用余额" data-en="Balance">可用余额</span>
+            <p class="metric" id="balanceValue">$0.00</p>
+            <p data-zh="API 调用会从余额中扣费。" data-en="API usage is settled against this balance.">API 调用会从余额中扣费。</p>
+          </article>
+          <article class="console-card">
+            <span data-zh="API Key" data-en="API keys">API Key</span>
+            <p class="metric" id="keyCountValue">-</p>
+            <p data-zh="为不同项目创建独立密钥。" data-en="Create separate keys for each project.">为不同项目创建独立密钥。</p>
+          </article>
+          <article class="console-card">
+            <span data-zh="已启用模型" data-en="Enabled models">已启用模型</span>
+            <p class="metric" id="modelCountValue">-</p>
+            <p data-zh="来自当前账号的模型权限。" data-en="Loaded from account model access.">来自当前账号的模型权限。</p>
+          </article>
+          <article class="console-card">
+            <span data-zh="账号分组" data-en="Account group">账号分组</span>
+            <p class="metric" id="groupValue">-</p>
+            <p data-zh="分组会影响模型权限和计费规则。" data-en="Groups affect model access and pricing rules.">分组会影响模型权限和计费规则。</p>
+          </article>
+        </section>
+
+        <section class="console-section">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="接入检查" data-en="Integration checklist">接入检查</h2>
+              <p data-zh="完成下面几步后，就可以在自己的项目里调用 NexaGate。" data-en="Complete these steps before calling NexaGate from your own project.">完成下面几步后，就可以在自己的项目里调用 NexaGate。</p>
+            </div>
+            <button class="button-soft" type="button" data-copy-target="consoleBaseUrl" data-zh="复制 Base URL" data-en="Copy Base URL">复制 Base URL</button>
+          </div>
+          <div class="setup-grid">
+            <article class="setup-card" id="setupBaseUrl">
+              <span class="setup-index">1</span>
+              <div>
+                <strong data-zh="复制基础网址" data-en="Copy base URL">复制基础网址</strong>
+                <p><code id="consoleBaseUrl" data-base-url>https://api.nexagate.local/v1</code></p>
+              </div>
+            </article>
+            <article class="setup-card" id="setupKey">
+              <span class="setup-index">2</span>
+              <div>
+                <strong data-zh="创建 API Key" data-en="Create API key">创建 API Key</strong>
+                <p data-zh="每个项目建议单独创建一个 Key，并设置额度。" data-en="Create a separate capped key for each project.">每个项目建议单独创建一个 Key，并设置额度。</p>
+              </div>
+            </article>
+            <article class="setup-card" id="setupModel">
+              <span class="setup-index">3</span>
+              <div>
+                <strong data-zh="确认模型权限" data-en="Check model access">确认模型权限</strong>
+                <p data-zh="至少需要一个可用模型，才能发起真实请求。" data-en="At least one model is required before real requests can run.">至少需要一个可用模型，才能发起真实请求。</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="console-section" id="keys">
+          <div class="section-head">
+            <div>
+              <h2>API Key</h2>
+              <p data-zh="为项目、环境或成员创建不同 Key，并分别设置额度。" data-en="Create separate keys for projects, environments, or teammates with independent caps.">为项目、环境或成员创建不同 Key，并分别设置额度。</p>
+            </div>
+            <div class="inline-actions">
+              <button class="button-soft" type="button" data-batch-copy-keys data-zh="复制标识" data-en="Copy references">复制标识</button>
+              <button class="button-danger" type="button" data-batch-delete-keys data-zh="批量删除" data-en="Delete selected">批量删除</button>
+              <button class="button" type="button" data-open-dialog="keyDialog" data-zh="创建 API Key" data-en="Create API key">创建 API Key</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="selectAllKeys" aria-label="Select all API keys" /></th>
+                  <th data-zh="名称" data-en="Name">名称</th>
+                  <th>Key</th>
+                  <th data-zh="分组" data-en="Group">分组</th>
+                  <th data-zh="额度" data-en="Cap">额度</th>
+                  <th data-zh="已用" data-en="Used">已用</th>
+                  <th data-zh="模型限制" data-en="Models">模型限制</th>
+                  <th data-zh="最后访问" data-en="Last used">最后访问</th>
+                  <th data-zh="状态" data-en="Status">状态</th>
+                  <th data-zh="操作" data-en="Actions">操作</th>
+                </tr>
+              </thead>
+              <tbody id="keyTable">
+                <tr><td colspan="10" data-zh="正在加载 API Key..." data-en="Loading API keys...">正在加载 API Key...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="console-section" id="balance">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="余额充值" data-en="Balance">余额充值</h2>
+              <p id="topupInfo" data-zh="正在读取充值配置..." data-en="Loading top-up settings...">正在读取充值配置...</p>
+            </div>
+            <button class="button-ghost" type="button" data-open-dialog="balanceDialog" data-topup-mode="manual" data-zh="充值" data-en="Add balance">充值</button>
+          </div>
+          <div class="topup-flow">
+            <article class="flow-step">
+              <span>01</span>
+              <strong data-zh="点击充值" data-en="Open top-up">点击充值</strong>
+              <p data-zh="收款码只会在弹窗里显示，不直接暴露在页面上。" data-en="Payment QR codes are shown only inside the modal.">收款码只会在弹窗里显示，不直接暴露在页面上。</p>
+            </article>
+            <article class="flow-step">
+              <span>02</span>
+              <strong data-zh="扫码付款" data-en="Scan and pay">扫码付款</strong>
+              <p data-zh="选择支付宝或微信，按实际付款金额提交记录。" data-en="Choose Alipay or WeChat and submit the paid amount.">选择支付宝或微信，按实际付款金额提交记录。</p>
+            </article>
+            <article class="flow-step">
+              <span>03</span>
+              <strong data-zh="核对入账" data-en="Admin review">核对入账</strong>
+              <p data-zh="管理员确认到账后，会把余额加到你的账号。" data-en="After payment is confirmed, an admin credits your balance.">管理员确认到账后，会把余额加到你的账号。</p>
+            </article>
+          </div>
+          <div class="table-wrap stacked-table">
+            <table>
+              <thead>
+                <tr>
+                  <th data-zh="时间" data-en="Time">时间</th>
+                  <th data-zh="订单号" data-en="Order">订单号</th>
+                  <th data-zh="金额" data-en="Amount">金额</th>
+                  <th data-zh="支付方式" data-en="Method">支付方式</th>
+                  <th data-zh="状态" data-en="Status">状态</th>
+                </tr>
+              </thead>
+              <tbody id="topupTable">
+                <tr><td colspan="5" data-zh="正在加载充值记录..." data-en="Loading top-up records...">正在加载充值记录...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="console-section" id="models">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="模型权限" data-en="Model access">模型权限</h2>
+              <p data-zh="这里显示当前账号已经可以调用的模型。" data-en="Models currently enabled for this account.">这里显示当前账号已经可以调用的模型。</p>
+            </div>
+            <a class="button-soft" href="./models.html" data-zh="去模型广场" data-en="Open model plaza">去模型广场</a>
+          </div>
+          <div class="model-grid" id="enabledModels">
+            <article class="model-card"><span data-zh="加载中" data-en="Loading">加载中</span><strong>-</strong><p data-zh="正在读取当前账号模型权限。" data-en="Loading account model access.">正在读取当前账号模型权限。</p></article>
+          </div>
+        </section>
+
+        <section class="console-section" id="integration">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="接入配置" data-en="Integration">接入配置</h2>
+              <p data-zh="把下面这几项填到你的应用或 SDK 里，就能通过 NexaGate 发起请求。" data-en="Use these values in your app or SDK to send requests through NexaGate.">把下面这几项填到你的应用或 SDK 里，就能通过 NexaGate 发起请求。</p>
+            </div>
+            <a class="button-soft" href="./docs.html#quickstart" data-zh="查看文档" data-en="Docs">查看文档</a>
+          </div>
+          <div class="section-grid">
+            <article class="card">
+              <strong>Base URL</strong>
+              <p><code id="integrationBaseUrl" data-base-url>https://api.nexagate.local/v1</code></p>
+              <div class="inline-actions" style="margin-top: 18px">
+                <button class="button-soft" type="button" data-copy-target="integrationBaseUrl" data-zh="复制" data-en="Copy">复制</button>
+              </div>
+            </article>
+            <article class="card">
+              <strong>API Key</strong>
+              <p id="integrationKeyHint" data-zh="完整 Key 只在创建时显示一次；如果忘记保存，请重新创建一个 Key。" data-en="Full keys are shown only once at creation. Create a new key if you did not save it.">完整 Key 只在创建时显示一次；如果忘记保存，请重新创建一个 Key。</p>
+              <label class="field" style="margin-top: 14px">
+                <span data-zh="选择 Key" data-en="Select key">选择 Key</span>
+                <select id="integrationToken"></select>
+              </label>
+              <div class="inline-actions" style="margin-top: 18px">
+                <button class="button-soft" type="button" id="copyIntegrationKey" data-zh="复制标识" data-en="Copy reference">复制标识</button>
+              </div>
+            </article>
+            <article class="card">
+              <strong data-zh="推荐模型" data-en="Model">推荐模型</strong>
+              <p id="integrationModel">deepseek-v4-flash</p>
+              <p data-zh="模型广场里显示的模型名可以直接填到 model 参数。" data-en="Model names shown in the plaza can be used as the model parameter.">模型广场里显示的模型名可以直接填到 model 参数。</p>
+            </article>
+          </div>
+          <div class="code-block">
+            <button class="copy-button" type="button" data-copy-target="curlCode" data-zh="复制" data-en="Copy">复制</button>
+            <pre><code id="curlCode" data-curl-example></code></pre>
+          </div>
+        </section>
+
+        <section class="console-section" id="logs">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="调用日志" data-en="Usage logs">调用日志</h2>
+              <p data-zh="查看每次请求的模型、Token、费用和状态。" data-en="Review model, tokens, cost, and status for each request.">查看每次请求的模型、Token、费用和状态。</p>
+            </div>
+          </div>
+          <form class="toolbar" id="logFilterForm">
+            <label class="field compact-field">
+              <span data-zh="模型" data-en="Model">模型</span>
+              <input name="model_name" placeholder="deepseek" data-placeholder-zh="输入模型名" data-placeholder-en="Model name" />
+            </label>
+            <label class="field compact-field">
+              <span data-zh="Key 名称" data-en="Key name">Key 名称</span>
+              <input name="token_name" placeholder="Production app" data-placeholder-zh="输入 Key 名称" data-placeholder-en="Key name" />
+            </label>
+            <button class="button-soft" type="submit" data-zh="筛选" data-en="Filter">筛选</button>
+            <button class="button-ghost" type="button" id="clearLogFilters" data-zh="清空" data-en="Clear">清空</button>
+          </form>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th data-zh="时间" data-en="Time">时间</th><th data-zh="模型" data-en="Model">模型</th><th>Token</th><th data-zh="费用" data-en="Cost">费用</th><th data-zh="结果" data-en="Result">结果</th></tr></thead>
+              <tbody id="logsTable">
+                <tr><td colspan="5" data-zh="正在加载调用日志..." data-en="Loading usage logs...">正在加载调用日志...</td></tr>
+              </tbody>
+            </table>
+            <div class="table-pagination" id="logPagination">
+              <button class="button-soft" type="button" data-log-prev data-zh="上一页" data-en="Previous">上一页</button>
+              <span id="logPageInfo">1</span>
+              <button class="button-soft" type="button" data-log-next data-zh="下一页" data-en="Next">下一页</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="console-section" id="account">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="账号资料" data-en="Account">账号资料</h2>
+              <p data-zh="修改显示名称，查看账号角色、分组和历史消耗。" data-en="Update display name and review role, group, and historical usage.">修改显示名称，查看账号角色、分组和历史消耗。</p>
+            </div>
+          </div>
+          <div class="section-grid">
+            <form class="card form-stack" id="accountForm">
+              <strong data-zh="基础资料" data-en="Profile">基础资料</strong>
+              <label class="field">
+                <span data-zh="用户名" data-en="Username">用户名</span>
+                <input name="username" id="accountUsername" readonly />
+              </label>
+              <label class="field">
+                <span data-zh="显示名称" data-en="Display name">显示名称</span>
+                <input name="display_name" id="accountDisplayName" maxlength="20" />
+              </label>
+              <button class="button" type="submit" data-zh="保存资料" data-en="Save profile">保存资料</button>
+            </form>
+            <article class="card">
+              <strong data-zh="账号信息" data-en="Account info">账号信息</strong>
+              <p><span data-zh="角色：" data-en="Role: ">角色：</span><span id="accountRoleValue">-</span></p>
+              <p><span data-zh="分组：" data-en="Group: ">分组：</span><span id="accountGroupValue">-</span></p>
+              <p><span data-zh="累计消耗：" data-en="Used: ">累计消耗：</span><span id="usedQuotaValue">$0.00</span></p>
+            </article>
+            <article class="card">
+              <strong data-zh="可用分组" data-en="Available groups">可用分组</strong>
+              <p id="groupList" data-zh="正在读取可用分组..." data-en="Loading groups...">正在读取可用分组...</p>
+            </article>
+            <article class="card">
+              <strong data-zh="邀请返利" data-en="Referral">邀请返利</strong>
+              <p><span data-zh="邀请码：" data-en="Code: ">邀请码：</span><code id="affCodeValue">-</code></p>
+              <p><span data-zh="可转余额：" data-en="Transferable: ">可转余额：</span><span id="affQuotaValue">$0.00</span></p>
+              <form class="inline-actions" id="affTransferForm" style="margin-top: 18px">
+                <input class="mini-input" name="amount" type="number" min="1" step="1" placeholder="5" />
+                <button class="button-soft" type="submit" data-zh="转入余额" data-en="Transfer">转入余额</button>
+              </form>
+            </article>
+            <article class="card">
+              <strong>Access Token</strong>
+              <p data-zh="用于少数管理接口或自动化脚本。生成后请妥善保存，不要公开。" data-en="For selected management APIs or automation scripts. Keep it private after generation.">用于少数管理接口或自动化脚本。生成后请妥善保存，不要公开。</p>
+              <p><code id="accessTokenValue">-</code></p>
+              <div class="inline-actions" style="margin-top: 18px">
+                <button class="button-soft" type="button" id="generateAccessToken" data-zh="生成并复制" data-en="Generate and copy">生成并复制</button>
+              </div>
+            </article>
+            <article class="card hidden" data-admin-only>
+              <strong data-zh="管理员工具" data-en="Admin tools">管理员工具</strong>
+              <p data-zh="管理员可以查看 token 差价毛利，或进入后台配置渠道、倍率和支付。" data-en="Admins can review token spread profit or configure channels, ratios, and payments in the backend.">管理员可以查看 token 差价毛利，或进入后台配置渠道、倍率和支付。</p>
+              <div class="inline-actions" style="margin-top: 18px">
+                <a class="button-soft" href="./profit.html" data-zh="利润看板" data-en="Profit">利润看板</a>
+                <a class="button-ghost" href="#" data-admin-backend data-zh="进入后台" data-en="Open backend">进入后台</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="console-section" id="playground">
+          <div class="section-head">
+            <div>
+              <h2>Playground</h2>
+              <p data-zh="先在控制台测试提示词，再写到你的应用里。" data-en="Test prompts in the console before adding them to your app.">先在控制台测试提示词，再写到你的应用里。</p>
+            </div>
+          </div>
+          <form class="section-grid" id="playgroundForm">
+            <label class="field">
+              <span>API Key</span>
+              <select name="token_id" id="playgroundToken"></select>
+            </label>
+            <label class="field">
+              <span data-zh="模型" data-en="Model">模型</span>
+              <select name="model" id="playgroundModel"></select>
+            </label>
+            <label class="field">
+              <span data-zh="提示词" data-en="Prompt">提示词</span>
+              <textarea name="prompt" rows="4">帮我写一段跨境电商客服回复。</textarea>
+            </label>
+            <article class="card">
+              <strong data-zh="模型输出" data-en="Output">模型输出</strong>
+              <p id="playgroundOutput" data-zh="点击运行后显示结果。" data-en="Run the prompt to show a response.">点击运行后显示结果。</p>
+              <div class="inline-actions" style="margin-top: 18px">
+                <button class="button" type="submit" data-zh="运行" data-en="Run">运行</button>
+              </div>
+            </article>
+          </form>
+        </section>
+
+        <section class="console-section" id="settings">
+          <div class="section-head">
+            <div>
+              <h2 data-zh="设置" data-en="Settings">设置</h2>
+              <p data-zh="这里放当前账号真正能操作的入口，不再展示不能点击的说明卡。" data-en="These are actionable account controls, not static feature cards.">这里放当前账号真正能操作的入口，不再展示不能点击的说明卡。</p>
+            </div>
+          </div>
+          <div class="section-grid">
+            <article class="card action-card">
+              <strong data-zh="余额与充值" data-en="Balance and top-up">余额与充值</strong>
+              <p data-zh="查看当前余额，扫码付款后等待管理员入账。" data-en="Review balance and submit a manual top-up after payment.">查看当前余额，扫码付款后等待管理员入账。</p>
+              <a class="button-soft" href="#balance" data-zh="去充值" data-en="Top up">去充值</a>
+            </article>
+            <article class="card action-card">
+              <strong data-zh="API Key 限额" data-en="API key caps">API Key 限额</strong>
+              <p data-zh="创建、停用、删除 Key，并给每个 Key 单独设置额度。" data-en="Create, disable, delete, and cap each API key.">创建、停用、删除 Key，并给每个 Key 单独设置额度。</p>
+              <a class="button-soft" href="#keys" data-zh="管理 Key" data-en="Manage keys">管理 Key</a>
+            </article>
+            <article class="card action-card">
+              <strong data-zh="接入配置" data-en="Integration">接入配置</strong>
+              <p data-zh="复制 Base URL、API Key 和请求示例。" data-en="Copy the Base URL, API key, and request examples.">复制 Base URL、API Key 和请求示例。</p>
+              <a class="button-soft" href="#integration" data-zh="查看配置" data-en="Open config">查看配置</a>
+            </article>
+            <article class="card action-card hidden" data-admin-only>
+              <strong data-zh="管理员后台" data-en="Admin backend">管理员后台</strong>
+              <p data-zh="配置上游模型、倍率、支付和系统参数。" data-en="Configure upstream models, ratios, payments, and system settings.">配置上游模型、倍率、支付和系统参数。</p>
+              <a class="button-ghost" href="#" data-admin-backend data-zh="进入后台" data-en="Open backend">进入后台</a>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="keyDialog">
+      <form class="dialog-card auth-form" id="keyForm" method="dialog">
+        <div class="dialog-head">
+          <h2 data-zh="创建 API Key" data-en="Create API key">创建 API Key</h2>
+          <button class="icon-button" type="button" data-close-dialog aria-label="Close">x</button>
+        </div>
+        <label class="field"><span data-zh="名称" data-en="Name">名称</span><input name="keyName" placeholder="Production app" /></label>
+        <label class="field">
+          <span data-zh="额度" data-en="Cap">额度</span>
+          <select name="keyCap">
+            <option>$10</option>
+            <option>$25</option>
+            <option>$100</option>
+            <option>$500</option>
+            <option value="$0" data-zh="不限额（仅管理员）" data-en="Unlimited (admin only)">不限额（仅管理员）</option>
+          </select>
+        </label>
+        <button class="button" type="submit" data-zh="创建" data-en="Create">创建</button>
+      </form>
+    </dialog>
+
+    <dialog id="keyEditDialog">
+      <form class="dialog-card auth-form" id="keyEditForm" method="dialog">
+        <div class="dialog-head">
+          <h2 data-zh="编辑 API Key" data-en="Edit API key">编辑 API Key</h2>
+          <button class="icon-button" type="button" data-close-dialog aria-label="Close">x</button>
+        </div>
+        <input type="hidden" name="id" id="editKeyId" />
+        <label class="field"><span data-zh="名称" data-en="Name">名称</span><input name="name" id="editKeyName" maxlength="50" /></label>
+        <label class="field">
+          <span data-zh="状态" data-en="Status">状态</span>
+          <select name="status" id="editKeyStatus">
+            <option value="1" data-zh="启用" data-en="Enabled">启用</option>
+            <option value="2" data-zh="停用" data-en="Disabled">停用</option>
+          </select>
+        </label>
+        <label class="field">
+          <span data-zh="剩余额度" data-en="Remaining cap">剩余额度</span>
+          <input name="quota" id="editKeyQuota" type="number" min="0" step="1" />
+        </label>
+        <label class="toggle-line">
+          <input name="unlimited_quota" id="editKeyUnlimited" type="checkbox" />
+          <span data-zh="不限额度" data-en="Unlimited quota">不限额度</span>
+        </label>
+        <label class="toggle-line">
+          <input name="model_limits_enabled" id="editKeyModelLimitEnabled" type="checkbox" />
+          <span data-zh="限制可用模型" data-en="Restrict models">限制可用模型</span>
+        </label>
+        <label class="field">
+          <span data-zh="可用模型" data-en="Allowed models">可用模型</span>
+          <textarea name="model_limits" id="editKeyModelLimits" rows="3" placeholder="deepseek-v4-flash,deepseek-chat" data-placeholder-zh="用逗号分隔模型名" data-placeholder-en="Comma-separated model names"></textarea>
+        </label>
+        <label class="field">
+          <span data-zh="允许 IP" data-en="Allowed IPs">允许 IP</span>
+          <textarea name="allow_ips" id="editKeyAllowIps" rows="3" placeholder="每行一个 IP，留空表示不限制" data-placeholder-zh="每行一个 IP，留空表示不限制" data-placeholder-en="One IP per line, empty means no restriction"></textarea>
+        </label>
+        <button class="button" type="submit" data-zh="保存" data-en="Save">保存</button>
+      </form>
+    </dialog>
+
+    <dialog id="balanceDialog">
+      <form class="dialog-card auth-form" id="balanceForm" method="dialog">
+        <div class="dialog-head">
+          <h2 data-zh="充值余额" data-en="Add balance">充值余额</h2>
+          <button class="icon-button" type="button" data-close-dialog aria-label="Close">x</button>
+        </div>
+        <label class="field">
+          <span data-zh="充值方式" data-en="Top-up method">充值方式</span>
+          <select name="topupMode" id="topupMode">
+            <option value="manual" data-zh="扫码付款" data-en="QR payment">扫码付款</option>
+            <option value="redeem" data-zh="兑换码" data-en="Redemption code">兑换码</option>
+          </select>
+        </label>
+        <div class="form-stack" data-topup-field="manual">
+          <div class="payment-grid modal-payment-grid">
+            <article class="payment-card">
+              <strong data-zh="支付宝收款" data-en="Alipay">支付宝收款</strong>
+              <div class="qr-box payment-poster">
+                <img src="./assets/pay-alipay.jpg" alt="支付宝收款码" data-payment-qr hidden />
+                <span data-zh="收款码暂未配置" data-en="QR code not configured">收款码暂未配置</span>
+                <p data-zh="请联系管理员处理充值。" data-en="Contact an admin to top up.">请联系管理员处理充值。</p>
+              </div>
+            </article>
+            <article class="payment-card">
+              <strong data-zh="微信收款" data-en="WeChat Pay">微信收款</strong>
+              <div class="qr-box payment-poster">
+                <img src="./assets/pay-wechat.jpg" alt="微信收款码" data-payment-qr hidden />
+                <span data-zh="收款码暂未配置" data-en="QR code not configured">收款码暂未配置</span>
+                <p data-zh="请联系管理员处理充值。" data-en="Contact an admin to top up.">请联系管理员处理充值。</p>
+              </div>
+            </article>
+          </div>
+          <label class="field">
+            <span data-zh="付款方式" data-en="Payment method">付款方式</span>
+            <select name="manualMethod">
+              <option value="支付宝" data-zh="支付宝" data-en="Alipay">支付宝</option>
+              <option value="微信" data-zh="微信" data-en="WeChat Pay">微信</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-zh="付款金额" data-en="Amount paid">付款金额</span>
+            <input name="manualAmount" type="number" min="1" step="0.01" placeholder="25" required />
+          </label>
+          <label class="field">
+            <span data-zh="联系方式" data-en="Contact">联系方式</span>
+            <input name="manualContact" placeholder="微信号 / 邮箱 / Telegram" data-placeholder-zh="微信号 / 邮箱 / Telegram" data-placeholder-en="WeChat / email / Telegram" required />
+          </label>
+          <label class="field">
+            <span data-zh="付款备注" data-en="Payment note">付款备注</span>
+            <textarea name="manualNote" rows="3" placeholder="填写转账时间、付款备注或订单截图说明" data-placeholder-zh="填写转账时间、付款备注或订单截图说明" data-placeholder-en="Payment time, note, or screenshot description"></textarea>
+          </label>
+        </div>
+        <label class="field" data-topup-field="redeem">
+          <span data-zh="兑换码" data-en="Redemption code">兑换码</span>
+          <input name="redemptionKey" placeholder="输入兑换码" data-placeholder-zh="输入兑换码" data-placeholder-en="Enter redemption code" />
+        </label>
+        <div class="form-stack" data-topup-field="online">
+          <label class="field">
+            <span data-zh="支付渠道" data-en="Payment method">支付渠道</span>
+            <select name="paymentMethod" id="paymentMethod"></select>
+          </label>
+          <label class="field">
+            <span data-zh="充值金额" data-en="Amount">充值金额</span>
+            <input name="amount" id="topupAmount" type="number" min="1" step="1" placeholder="25" />
+          </label>
+        </div>
+        <p class="form-note" id="balanceNote" data-zh="当前推荐扫码付款后联系管理员入账；自动在线支付接通后可在这里发起。" data-en="For now, scan a QR code and contact an admin to credit the balance. Online payment can be used here after setup.">当前推荐扫码付款后联系管理员入账；自动在线支付接通后可在这里发起。</p>
+        <button class="button" type="submit" data-zh="确认" data-en="Confirm">确认</button>
+      </form>
+    </dialog>
+  </body>
+</html>

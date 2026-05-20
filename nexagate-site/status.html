@@ -1,0 +1,77 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>状态 | NexaGate</title>
+    <meta name="description" content="NexaGate 服务状态和 API 网关健康概览。" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="NexaGate home">
+        <span class="brand-mark">N</span>
+        <span>NexaGate</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="./index.html" data-zh="首页" data-en="Home">首页</a>
+        <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+        <a class="active" href="./status.html" data-zh="状态" data-en="Status">状态</a>
+      </nav>
+      <div class="topbar-actions">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="button-ghost" href="./console.html" data-zh="进入控制台" data-en="Console">进入控制台</a>
+        <button class="button-ghost hidden" type="button" data-logged-in data-logout data-zh="退出登录" data-en="Sign out">退出登录</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="page-title">
+        <div>
+          <h1 data-zh="服务状态" data-en="Service status">服务状态</h1>
+          <p data-zh="这里显示 NexaGate 网关、用户控制台和 API 入口的可用状态。" data-en="Check availability for the NexaGate gateway, console, and API endpoint.">这里显示 NexaGate 网关、用户控制台和 API 入口的可用状态。</p>
+        </div>
+        <a class="button-soft" href="./docs.html" data-zh="查看接入文档" data-en="Read docs">查看接入文档</a>
+      </section>
+
+      <section class="section-grid">
+        <article class="console-card">
+          <span data-zh="网关" data-en="Gateway">网关</span>
+          <p class="metric" data-system-status>检查中</p>
+          <p data-zh="通过同域代理连接后端 API。" data-en="Connected through same-origin API proxy.">通过同域代理连接后端 API。</p>
+        </article>
+        <article class="console-card">
+          <span data-zh="控制台" data-en="Console">控制台</span>
+          <p class="metric" data-zh="可用" data-en="Ready">可用</p>
+          <p data-zh="用户可登录、创建 Key、查看余额和日志。" data-en="Users can sign in, create keys, and view balance and logs.">用户可登录、创建 Key、查看余额和日志。</p>
+        </article>
+        <article class="console-card">
+          <span>Base URL</span>
+          <p class="metric" style="font-size: 18px" data-base-url>https://api.nexagate.local/v1</p>
+          <p data-zh="用户应用需要接入这个地址。" data-en="Applications should point to this endpoint.">用户应用需要接入这个地址。</p>
+        </article>
+      </section>
+
+      <section class="console-section">
+        <div class="doc-card">
+          <h2 data-zh="核心路径" data-en="Core routes">核心路径</h2>
+          <div class="status-list">
+            <div class="status-row"><strong>/api/user/self</strong><span class="status-pill" data-zh="账号信息" data-en="Account">账号信息</span></div>
+            <div class="status-row"><strong>/api/token/</strong><span class="status-pill" data-zh="密钥管理" data-en="Keys">密钥管理</span></div>
+            <div class="status-row"><strong>/api/user/models</strong><span class="status-pill" data-zh="模型权限" data-en="Models">模型权限</span></div>
+            <div class="status-row"><strong>/v1/chat/completions</strong><span class="status-pill" data-zh="模型调用" data-en="Completions">模型调用</span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>使用场景 | NexaGate</title>
+    <meta name="description" content="NexaGate API 适用于开发者、团队和 SaaS 产品的常见 AI 使用场景。" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="NexaGate home">
+        <span class="brand-mark">N</span>
+        <span>NexaGate</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="./index.html" data-zh="首页" data-en="Home">首页</a>
+        <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+        <a class="active" href="./use-cases.html" data-zh="场景" data-en="Use cases">场景</a>
+      </nav>
+      <div class="header-actions">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="ghost-link" href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a class="primary-link" href="./auth.html" data-zh="开始使用" data-en="Start">开始使用</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="subpage-hero compact">
+        <p class="section-label" data-zh="使用场景" data-en="Use cases">使用场景</p>
+        <h1 data-zh="把模型能力用到真实业务里。" data-en="Put model capability into real workflows.">把模型能力用到真实业务里。</h1>
+        <p>
+          NexaGate 适合需要稳定接口、可控成本和多模型选择的开发场景。你可以先从一个具体工作流开始接入。
+        </p>
+      </section>
+
+      <section class="section use-case-grid">
+        <article>
+          <span data-zh="跨境电商" data-en="Cross-border commerce">跨境电商</span>
+          <strong data-zh="商品文案和客服回复" data-en="Product copy and support replies">商品文案和客服回复</strong>
+          <p data-zh="生成多语言商品描述、改写评价、草拟客服消息。" data-en="Generate multilingual listings, rewrite reviews, and draft customer support messages.">生成多语言商品描述、改写评价、草拟客服消息。</p>
+        </article>
+        <article>
+          <span data-zh="内容团队" data-en="Content teams">内容团队</span>
+          <strong data-zh="批量摘要和 SEO 草稿" data-en="Batch summaries and SEO drafts">批量摘要和 SEO 草稿</strong>
+          <p data-zh="用预付费额度控制批量任务成本，减少意外消耗。" data-en="Run scheduled content jobs while keeping spend predictable with prepaid caps.">用预付费额度控制批量任务成本，减少意外消耗。</p>
+        </article>
+        <article>
+          <span data-zh="SaaS 开发者" data-en="SaaS builders">SaaS 开发者</span>
+          <strong data-zh="更灵活的 AI 功能" data-en="AI features without model lock-in">更灵活的 AI 功能</strong>
+          <p data-zh="把聊天、分类、内容生成等能力接到稳定 API 后面。" data-en="Ship chat, classification, and content features behind a stable API route.">把聊天、分类、内容生成等能力接到稳定 API 后面。</p>
+        </article>
+        <article>
+          <span data-zh="团队和代理商" data-en="Agencies">团队和代理商</span>
+          <strong data-zh="按项目拆分 Key 和额度" data-en="Client workspaces">按项目拆分 Key 和额度</strong>
+          <p data-zh="为不同项目创建独立 API Key，分别设置额度并查看用量。" data-en="Create separate keys and caps for each project, then monitor spend and usage.">为不同项目创建独立 API Key，分别设置额度并查看用量。</p>
+        </article>
+      </section>
+
+      <section class="section workflow-section">
+        <div class="section-heading">
+          <p class="section-label" data-zh="推荐流程" data-en="Workflow">推荐流程</p>
+          <h2 data-zh="从一个小场景开始，确认效果后再放量。" data-en="Start small, then scale after quality is clear.">从一个小场景开始，确认效果后再放量。</h2>
+        </div>
+        <div class="workflow-steps">
+          <article><span>01</span><strong data-zh="选一个工作流" data-en="Pick one workflow">选一个工作流</strong><p data-zh="先从翻译、客服回复或摘要开始。" data-en="Start with translation, support replies, or summaries.">先从翻译、客服回复或摘要开始。</p></article>
+          <article><span>02</span><strong data-zh="设置预付费额度" data-en="Set a prepaid cap">设置预付费额度</strong><p data-zh="测试阶段先控制预算上限。" data-en="Keep usage bounded while testing quality.">测试阶段先控制预算上限。</p></article>
+          <article><span>03</span><strong data-zh="观察效果和消耗" data-en="Measure usage">观察效果和消耗</strong><p data-zh="查看调用日志、模型表现和每次请求成本。" data-en="Review logs, model quality, and cost per request.">查看调用日志、模型表现和每次请求成本。</p></article>
+          <article><span>04</span><strong data-zh="提高限额" data-en="Raise limits">提高限额</strong><p data-zh="确认用量稳定后，再提高 Key 额度和请求频率。" data-en="Raise caps after normal usage patterns are clear.">确认用量稳定后，再提高 Key 额度和请求频率。</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>NexaGate</strong>
+        <p data-zh="面向开发者的 AI API 网关。" data-en="AI API gateway for developers.">面向开发者的 AI API 网关。</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="./models.html" data-zh="模型" data-en="Models">模型</a>
+        <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+      </nav>
+    </footer>
+  </body>
+</html>

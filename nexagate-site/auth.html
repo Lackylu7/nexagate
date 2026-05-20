@@ -1,0 +1,66 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>登录 | NexaGate</title>
+    <meta name="description" content="登录或注册 NexaGate，进入用户控制台管理 API Key、余额、模型和调用日志。" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body class="auth-body">
+    <main class="auth-layout">
+      <section class="auth-intro">
+        <a class="brand" href="./index.html" aria-label="NexaGate home">
+          <span class="brand-mark">N</span>
+          <span>NexaGate</span>
+        </a>
+        <h1 data-zh="进入控制台。" data-en="Open console.">进入控制台。</h1>
+        <p
+          data-zh="登录后可以管理 API Key、余额、模型权限和调用记录。没有账号也可以直接注册。"
+          data-en="Sign in to manage API keys, balance, model access, and usage logs. New users can create an account here."
+        >
+          登录后可以管理 API Key、余额、模型权限和调用记录。没有账号也可以直接注册。
+        </p>
+      </section>
+
+      <section class="auth-panel">
+        <div class="topbar-actions" style="justify-content: space-between; margin-bottom: 22px">
+          <a class="button-ghost" href="./index.html" data-zh="返回首页" data-en="Home">返回首页</a>
+          <div class="language-switch" aria-label="Language switch">
+            <button type="button" data-lang="zh">中</button>
+            <button type="button" data-lang="en">EN</button>
+          </div>
+        </div>
+
+        <div class="auth-tabs" role="tablist" aria-label="Auth mode">
+          <button class="active" type="button" data-auth-tab="login" data-zh="登录" data-en="Sign in">登录</button>
+          <button type="button" data-auth-tab="register" data-zh="注册" data-en="Sign up">注册</button>
+        </div>
+
+        <form class="auth-form" id="authForm">
+          <input type="hidden" id="authMode" name="mode" value="login" />
+          <label class="field">
+            <span data-zh="用户名" data-en="Username">用户名</span>
+            <input name="account" autocomplete="username" placeholder="yourname" data-placeholder-zh="输入用户名" data-placeholder-en="Enter username" />
+          </label>
+          <label class="field">
+            <span data-zh="密码" data-en="Password">密码</span>
+            <input type="password" name="password" autocomplete="current-password" placeholder="输入密码" data-placeholder-zh="输入密码" data-placeholder-en="Enter password" />
+          </label>
+          <p class="error-text" id="authError" aria-live="polite"></p>
+          <button class="button" type="submit" data-zh="继续" data-en="Continue">继续</button>
+          <p
+            class="form-note"
+            data-zh="注册时请使用强密码。API Key 请只在服务端保存和使用，不要放到前端代码或公开仓库。"
+            data-en="Use a strong password when signing up. Keep API keys server-side only; never expose them in browser code or public repos."
+          >
+            注册时请使用强密码。API Key 请只在服务端保存和使用，不要放到前端代码或公开仓库。
+          </p>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

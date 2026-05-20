@@ -1,0 +1,111 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>价格 | NexaGate</title>
+    <meta name="description" content="NexaGate 模型调用价格和预付费计费说明。" />
+    <link rel="canonical" href="" />
+    <meta property="og:title" content="价格 | NexaGate" />
+    <meta property="og:description" content="查看 NexaGate 模型输入、输出价格和预付费计费规则。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="./assets/og-nexagate.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="./assets/og-nexagate.png" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="NexaGate home">
+        <span class="brand-mark">N</span>
+        <span>NexaGate</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="./index.html" data-zh="首页" data-en="Home">首页</a>
+        <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a class="active" href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+      </nav>
+      <div class="topbar-actions">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="button-ghost" href="./auth.html?next=console.html" data-logged-out data-zh="进入控制台" data-en="Console">进入控制台</a>
+        <a class="button-ghost hidden" href="./console.html" data-logged-in data-zh="进入控制台" data-en="Console">进入控制台</a>
+        <button class="button-ghost hidden" type="button" data-logged-in data-logout data-zh="退出登录" data-en="Sign out">退出登录</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="page-title">
+        <div>
+          <h1 data-zh="价格" data-en="Pricing">价格</h1>
+          <p data-zh="NexaGate 采用预付费余额。请求按模型、输入 tokens、输出 tokens 和账号分组扣费，余额不足时停止调用。" data-en="NexaGate uses prepaid balance. Requests are charged by model, input tokens, output tokens, and account group. Calls stop when balance is insufficient.">NexaGate 采用预付费余额。请求按模型、输入 tokens、输出 tokens 和账号分组扣费，余额不足时停止调用。</p>
+        </div>
+        <a class="button" href="./auth.html?next=console.html" data-zh="充值并使用" data-en="Add balance">充值并使用</a>
+      </section>
+
+      <section class="console-section">
+        <div class="section-head">
+          <div>
+            <h2 data-zh="当前模型售价" data-en="Current model prices">当前模型售价</h2>
+            <p data-zh="以下价格是对用户展示和后台实际扣费保持一致的价格。" data-en="These prices match the user-facing display and backend metering.">以下价格是对用户展示和后台实际扣费保持一致的价格。</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="pricing-table">
+            <thead>
+              <tr>
+                <th data-zh="模型" data-en="Model">模型</th>
+                <th data-zh="适合场景" data-en="Best for">适合场景</th>
+                <th data-zh="输入价格" data-en="Input">输入价格</th>
+                <th data-zh="输出价格" data-en="Output">输出价格</th>
+              </tr>
+            </thead>
+            <tbody data-pricing-rows="detailed">
+              <tr>
+                <td><strong>deepseek-v4-flash</strong></td>
+                <td data-zh="高速对话、文本处理、代码辅助" data-en="Fast chat, text processing, coding help">高速对话、文本处理、代码辅助</td>
+                <td>$0.80 / 1M tokens</td>
+                <td>$3.20 / 1M tokens</td>
+              </tr>
+              <tr>
+                <td><strong>deepseek-chat</strong></td>
+                <td data-zh="对话、摘要、翻译、代码辅助、客服回复" data-en="Chat, summaries, translation, coding help, support replies">对话、摘要、翻译、代码辅助、客服回复</td>
+                <td>$0.80 / 1M tokens</td>
+                <td>$3.20 / 1M tokens</td>
+              </tr>
+              <tr>
+                <td><strong>deepseek-reasoner</strong></td>
+                <td data-zh="复杂分析、代码推理、规划、长链路思考" data-en="Complex analysis, code reasoning, planning, longer reasoning">复杂分析、代码推理、规划、长链路思考</td>
+                <td>$1.60 / 1M tokens</td>
+                <td>$6.40 / 1M tokens</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-grid">
+        <article class="card">
+          <strong data-zh="透明计费" data-en="Transparent metering">透明计费</strong>
+          <p data-zh="每次请求按输入和输出 tokens 计费，控制台会显示余额、消耗和调用记录，方便你按项目核算成本。" data-en="Each request is metered by input and output tokens. The console shows balance, spend, and request history for project-level cost tracking.">每次请求按输入和输出 tokens 计费，控制台会显示余额、消耗和调用记录，方便你按项目核算成本。</p>
+        </article>
+        <article class="card">
+          <strong data-zh="用户怎么控制成本" data-en="How users control spend">用户怎么控制成本</strong>
+          <p data-zh="用户可以按项目创建 API Key，并给每个 Key 单独设置额度。余额或 Key 额度不足时，请求会停止。" data-en="Users can create API keys per project and set independent caps. Calls stop when balance or key cap is insufficient.">用户可以按项目创建 API Key，并给每个 Key 单独设置额度。余额或 Key 额度不足时，请求会停止。</p>
+        </article>
+        <article class="card">
+          <strong data-zh="适合持续集成" data-en="Built for ongoing use">适合持续集成</strong>
+          <p data-zh="统一的 Base URL、稳定的模型名称和清晰的调用记录，适合接入脚本、应用后端、客服系统和内部工具。" data-en="A unified Base URL, stable model names, and clear logs make it suitable for scripts, backends, support systems, and internal tools.">统一的 Base URL、稳定的模型名称和清晰的调用记录，适合接入脚本、应用后端、客服系统和内部工具。</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

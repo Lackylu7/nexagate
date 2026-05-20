@@ -1,0 +1,62 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>安全 | NexaGate</title>
+    <meta name="description" content="NexaGate 的 API Key、预付费余额和模型调用安全说明。" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="NexaGate home">
+        <span class="brand-mark">N</span>
+        <span>NexaGate</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="./index.html" data-zh="首页" data-en="Home">首页</a>
+        <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+        <a class="active" href="./security.html" data-zh="安全" data-en="Security">安全</a>
+      </nav>
+      <div class="header-actions">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="ghost-link" href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a class="primary-link" href="./auth.html" data-zh="开始使用" data-en="Start">开始使用</a>
+      </div>
+    </header>
+    <main>
+      <section class="subpage-hero compact">
+        <p class="section-label" data-zh="安全" data-en="Security">安全</p>
+        <h1 data-zh="围绕 API Key、余额和用量上限做保护。" data-en="Built around API keys, balance, and usage limits.">围绕 API Key、余额和用量上限做保护。</h1>
+        <p data-zh="你只需要在自己的服务端使用 NexaGate API Key，并通过控制台管理额度、模型权限和异常用量提醒。" data-en="Use your NexaGate API key server-side and manage caps, model access, and usage alerts in the console.">你只需要在自己的服务端使用 NexaGate API Key，并通过控制台管理额度、模型权限和异常用量提醒。</p>
+      </section>
+      <section class="section security-grid">
+        <article><strong data-zh="服务端保存 Key" data-en="Server-side keys">服务端保存 Key</strong><p data-zh="不要把 API Key 写进公开前端代码或客户端应用。" data-en="Never embed API keys in public frontend or client-side code.">不要把 API Key 写进公开前端代码或客户端应用。</p></article>
+        <article><strong data-zh="Key 级别限额" data-en="Scoped API keys">Key 级别限额</strong><p data-zh="不同项目可以使用不同 Key，并分别设置额度。" data-en="Use separate keys and caps for different projects.">不同项目可以使用不同 Key，并分别设置额度。</p></article>
+        <article><strong data-zh="预付费余额" data-en="Prepaid balance">预付费余额</strong><p data-zh="余额不足时请求会停止，减少意外费用。" data-en="Requests stop when balance is insufficient, reducing surprise cost.">余额不足时请求会停止，减少意外费用。</p></article>
+        <article><strong data-zh="异常用量提醒" data-en="Usage alerts">异常用量提醒</strong><p data-zh="调用量异常时，可及时发现并处理。" data-en="Unusual usage can be detected and handled quickly.">调用量异常时，可及时发现并处理。</p></article>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>NexaGate</strong>
+        <p data-zh="面向开发者的 AI API 网关。" data-en="AI API gateway for developers.">面向开发者的 AI API 网关。</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./support.html" data-zh="支持" data-en="Support">支持</a>
+        <a href="./terms.html" data-zh="条款" data-en="Terms">条款</a>
+        <a href="./privacy.html" data-zh="隐私" data-en="Privacy">隐私</a>
+      </nav>
+    </footer>
+  </body>
+</html>

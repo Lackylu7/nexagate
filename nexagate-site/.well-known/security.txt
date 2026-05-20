@@ -1,0 +1,3 @@
+Contact: mailto:security@nexagate.local
+Preferred-Languages: zh, en
+Canonical: https://nexagate.local/.well-known/security.txt

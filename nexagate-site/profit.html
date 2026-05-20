@@ -1,0 +1,128 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>利润看板 | NexaGate</title>
+    <meta name="description" content="NexaGate 管理员利润看板，用于估算 token 差价毛利。" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body data-protected="true" data-admin="true">
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="NexaGate home">
+        <span class="brand-mark">N</span>
+        <span>NexaGate</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="./console.html" data-zh="用户控制台" data-en="User console">用户控制台</a>
+        <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+        <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+        <a class="active" href="./profit.html" data-zh="利润看板" data-en="Profit">利润看板</a>
+      </nav>
+      <div class="topbar-actions">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="button-ghost" href="#" data-admin-backend data-zh="进入后台" data-en="Open backend">进入后台</a>
+        <button class="button-ghost" type="button" data-logout data-zh="退出登录" data-en="Sign out">退出登录</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="page-title">
+        <div>
+          <h1 data-zh="利润看板" data-en="Profit dashboard">利润看板</h1>
+          <p data-zh="这里看的是 token 差价毛利：用户实际扣费 - 上游模型 token 成本。它还没有扣除支付手续费、服务器、域名和人工成本。" data-en="This shows token spread gross profit: user metered revenue minus upstream token cost. It does not subtract payment fees, servers, domains, or labor.">这里看的是 token 差价毛利：用户实际扣费 - 上游模型 token 成本。它还没有扣除支付手续费、服务器、域名和人工成本。</p>
+        </div>
+        <button class="button" type="button" data-refresh-console data-zh="刷新数据" data-en="Refresh">刷新数据</button>
+      </section>
+
+      <section class="metric-grid">
+        <article class="console-card">
+          <span data-zh="用户扣费收入" data-en="Metered revenue">用户扣费收入</span>
+          <p class="metric" id="profitRevenue">$0.00</p>
+          <p data-zh="按调用日志里实际扣掉的用户余额统计。" data-en="Calculated from quota deducted in usage logs.">按调用日志里实际扣掉的用户余额统计。</p>
+        </article>
+        <article class="console-card">
+          <span data-zh="上游 token 成本" data-en="Upstream token cost">上游 token 成本</span>
+          <p class="metric" id="profitUpstreamCost">$0.00</p>
+          <p data-zh="按 DeepSeek 官方 token 单价估算。" data-en="Estimated from official DeepSeek token prices.">按 DeepSeek 官方 token 单价估算。</p>
+        </article>
+        <article class="console-card">
+          <span data-zh="token 差价毛利" data-en="Token spread profit">token 差价毛利</span>
+          <p class="metric" id="profitGrossProfit">$0.00</p>
+          <p data-zh="收入减上游成本后的毛利润。" data-en="Revenue minus upstream cost.">收入减上游成本后的毛利润。</p>
+        </article>
+        <article class="console-card">
+          <span data-zh="毛利率" data-en="Gross margin">毛利率</span>
+          <p class="metric" id="profitGrossMargin">0%</p>
+          <p data-zh="只计算 token 差价，不代表最终净利润。" data-en="Token spread only, not final net profit.">只计算 token 差价，不代表最终净利润。</p>
+        </article>
+      </section>
+
+      <section class="console-section">
+        <div class="section-head">
+          <div>
+            <h2 data-zh="调用明细" data-en="Usage detail">调用明细</h2>
+            <p data-zh="默认排除管理员测试调用，只看真实用户带来的差价毛利。" data-en="Admin test calls are excluded by default, so this focuses on customer spread profit.">默认排除管理员测试调用，只看真实用户带来的差价毛利。</p>
+          </div>
+          <label class="toggle-line">
+            <input id="includeAdminLogs" type="checkbox" />
+            <span data-zh="包含管理员测试" data-en="Include admin tests">包含管理员测试</span>
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-zh="时间" data-en="Time">时间</th>
+                <th data-zh="用户" data-en="User">用户</th>
+                <th data-zh="模型" data-en="Model">模型</th>
+                <th data-zh="输入 / 输出" data-en="Input / Output">输入 / 输出</th>
+                <th data-zh="用户扣费" data-en="Revenue">用户扣费</th>
+                <th data-zh="上游成本" data-en="Cost">上游成本</th>
+                <th data-zh="毛利" data-en="Profit">毛利</th>
+              </tr>
+            </thead>
+            <tbody id="profitTable">
+              <tr><td colspan="7" data-zh="正在读取调用日志..." data-en="Loading usage logs...">正在读取调用日志...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="console-section">
+        <div class="section-head">
+          <div>
+            <h2 data-zh="手动充值订单" data-en="Manual top-ups">手动充值订单</h2>
+            <p data-zh="用户扫码付款后提交的信息会出现在这里。核对到账后，进入后台给用户手动加余额，再把订单标记为已入账。" data-en="QR payment submissions appear here. After confirming payment, credit the user in the backend and mark the order credited.">用户扫码付款后提交的信息会出现在这里。核对到账后，进入后台给用户手动加余额，再把订单标记为已入账。</p>
+          </div>
+          <a class="button-soft" href="#" data-admin-backend data-zh="进入后台加余额" data-en="Open backend">进入后台加余额</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-zh="时间" data-en="Time">时间</th>
+                <th data-zh="用户" data-en="User">用户</th>
+                <th data-zh="订单号" data-en="Order">订单号</th>
+                <th data-zh="金额" data-en="Amount">金额</th>
+                <th data-zh="方式" data-en="Method">方式</th>
+                <th data-zh="联系方式 / 备注" data-en="Contact / note">联系方式 / 备注</th>
+                <th data-zh="状态" data-en="Status">状态</th>
+                <th data-zh="操作" data-en="Actions">操作</th>
+              </tr>
+            </thead>
+            <tbody id="manualTopupTable">
+              <tr><td colspan="8" data-zh="正在读取手动充值订单..." data-en="Loading manual top-ups...">正在读取手动充值订单...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

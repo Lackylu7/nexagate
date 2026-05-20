@@ -1,0 +1,20 @@
+# Caddy reverse proxy example.
+#
+# Usage:
+#   1. Replace api.example.com with your real domain.
+#   2. Make sure DNS points to this server.
+#   3. Run New API on localhost:3000.
+#   4. Start Caddy.
+
+api.example.com {
+  encode zstd gzip
+
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "SAMEORIGIN"
+    Referrer-Policy "strict-origin-when-cross-origin"
+  }
+
+  reverse_proxy 127.0.0.1:3000
+}

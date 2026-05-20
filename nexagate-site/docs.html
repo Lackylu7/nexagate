@@ -1,0 +1,184 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>文档 | NexaGate</title>
+    <meta name="description" content="NexaGate 使用文档，包含 Base URL、API Key、SDK 示例、模型价格和常见错误。" />
+    <link rel="canonical" href="" />
+    <meta property="og:title" content="文档 | NexaGate" />
+    <meta property="og:description" content="从 Base URL、API Key 到 SDK 示例，完成第一次模型调用。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="./assets/og-nexagate.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="./assets/og-nexagate.png" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./nexa/config.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="NexaGate home">
+        <span class="brand-mark">N</span>
+        <span>NexaGate</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="./index.html" data-zh="首页" data-en="Home">首页</a>
+        <a href="./console.html" data-zh="控制台" data-en="Console">控制台</a>
+        <a href="./models.html" data-zh="模型广场" data-en="Models">模型广场</a>
+        <a class="active" href="./docs.html" data-zh="文档" data-en="Docs">文档</a>
+        <a href="./pricing.html" data-zh="价格" data-en="Pricing">价格</a>
+      </nav>
+      <div class="topbar-actions">
+        <div class="language-switch" aria-label="Language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="button-ghost" href="./auth.html?next=console.html" data-logged-out data-zh="进入控制台" data-en="Console">进入控制台</a>
+        <a class="button-ghost hidden" href="./console.html" data-logged-in data-zh="进入控制台" data-en="Console">进入控制台</a>
+        <button class="button-ghost hidden" type="button" data-logged-in data-logout data-zh="退出登录" data-en="Sign out">退出登录</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="page-title">
+        <div>
+          <h1 data-zh="文档" data-en="Docs">文档</h1>
+          <p data-zh="按下面几步接入 NexaGate：复制 Base URL，创建 API Key，选择模型，然后按 OpenAI 兼容格式发起请求。" data-en="Connect NexaGate by copying the base URL, creating an API key, choosing a model, and sending OpenAI-compatible requests.">按下面几步接入 NexaGate：复制 Base URL，创建 API Key，选择模型，然后按 OpenAI 兼容格式发起请求。</p>
+        </div>
+        <div class="doc-actions">
+          <a class="button-soft" href="./models.html" data-zh="查看模型" data-en="View models">查看模型</a>
+        </div>
+      </section>
+
+      <section class="docs-steps" aria-label="Quickstart steps">
+        <article>
+          <span>01</span>
+          <strong data-zh="复制 Base URL" data-en="Copy Base URL">复制 Base URL</strong>
+          <code data-base-url>https://api.nexagate.local/v1</code>
+        </article>
+        <article>
+          <span>02</span>
+          <strong data-zh="创建 API Key" data-en="Create API key">创建 API Key</strong>
+          <p data-zh="每个项目单独创建，方便限额和停用。" data-en="Create one per project for caps and revocation.">每个项目单独创建，方便限额和停用。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong data-zh="填入模型名" data-en="Set model name">填入模型名</strong>
+          <p>deepseek-v4-flash</p>
+        </article>
+      </section>
+
+      <div class="doc-grid">
+        <aside class="doc-sidebar">
+          <a href="#quickstart" data-zh="快速开始" data-en="Quickstart">快速开始</a>
+          <a href="#auth" data-zh="认证" data-en="Authentication">认证</a>
+          <a href="#sdk">SDK</a>
+          <a href="#examples" data-zh="示例" data-en="Examples">示例</a>
+          <a href="#stream" data-zh="流式输出" data-en="Streaming">流式输出</a>
+          <a href="#topup" data-zh="充值" data-en="Top-up">充值</a>
+          <a href="#pricing" data-zh="价格" data-en="Pricing">价格</a>
+          <a href="#errors" data-zh="常见错误" data-en="Errors">常见错误</a>
+          <a href="#security" data-zh="安全建议" data-en="Security">安全建议</a>
+        </aside>
+
+        <section class="doc-content">
+          <article class="doc-card" id="quickstart">
+            <h2 data-zh="快速开始" data-en="Quickstart">快速开始</h2>
+            <p data-zh="把你项目里的 baseURL 改成本站地址，模型名填写模型广场里显示的模型。" data-en="Set your project baseURL to this endpoint and use a model name shown in the model plaza.">把你项目里的 baseURL 改成本站地址，模型名填写模型广场里显示的模型。</p>
+            <div class="code-block">
+              <button class="copy-button" type="button" data-copy-target="baseUrlCode" data-zh="复制" data-en="Copy">复制</button>
+              <code id="baseUrlCode" data-base-url>https://api.nexagate.local/v1</code>
+            </div>
+          </article>
+
+          <article class="doc-card" id="auth">
+            <h2 data-zh="认证" data-en="Authentication">认证</h2>
+            <p data-zh="所有请求都需要携带控制台生成的 API Key。请只在服务端保存和使用 Key，不要放在浏览器前端或公开仓库里。" data-en="Every request must include an API key created in the console. Keep keys server-side; do not expose them in browser code or public repos.">所有请求都需要携带控制台生成的 API Key。请只在服务端保存和使用 Key，不要放在浏览器前端或公开仓库里。</p>
+            <div class="code-block">
+              <button class="copy-button" type="button" data-copy-target="authCode" data-zh="复制" data-en="Copy">复制</button>
+              <pre><code id="authCode">Authorization: Bearer sk-ng-your-key</code></pre>
+            </div>
+          </article>
+
+          <article class="doc-card" id="sdk">
+            <h2>JavaScript SDK</h2>
+            <p data-zh="如果你已经在用 OpenAI 风格 SDK，通常只需要替换 apiKey、baseURL 和 model。" data-en="If you already use an OpenAI-style SDK, usually only apiKey, baseURL, and model need to change.">如果你已经在用 OpenAI 风格 SDK，通常只需要替换 apiKey、baseURL 和 model。</p>
+            <div class="code-block">
+              <button class="copy-button" type="button" data-copy-target="jsCode" data-zh="复制" data-en="Copy">复制</button>
+              <pre><code id="jsCode" data-js-example></code></pre>
+            </div>
+          </article>
+
+          <article class="doc-card" id="examples">
+            <h2 data-zh="最小可运行示例" data-en="Runnable examples">最小可运行示例</h2>
+            <p data-zh="先用 curl 确认 Key 和余额可用，再把同样的 Base URL 和模型名接入你的服务端代码。" data-en="Verify your key and balance with curl first, then use the same base URL and model name in server-side code.">先用 curl 确认 Key 和余额可用，再把同样的 Base URL 和模型名接入你的服务端代码。</p>
+            <div class="code-block">
+              <button class="copy-button" type="button" data-copy-target="docsCurlCode" data-zh="复制" data-en="Copy">复制</button>
+              <pre><code id="docsCurlCode" data-curl-example></code></pre>
+            </div>
+            <div class="code-block">
+              <button class="copy-button" type="button" data-copy-target="pythonCode" data-zh="复制" data-en="Copy">复制</button>
+              <pre><code id="pythonCode" data-python-example></code></pre>
+            </div>
+          </article>
+
+          <article class="doc-card" id="stream">
+            <h2 data-zh="流式输出" data-en="Streaming">流式输出</h2>
+            <p data-zh="需要边生成边显示时，在请求里启用 stream。适合聊天窗口、客服回复和长文本生成。" data-en="Enable stream when you want tokens to appear as they are generated. Useful for chat, support replies, and long-form output.">需要边生成边显示时，在请求里启用 stream。适合聊天窗口、客服回复和长文本生成。</p>
+            <div class="code-block">
+              <button class="copy-button" type="button" data-copy-target="streamCode" data-zh="复制" data-en="Copy">复制</button>
+              <pre><code id="streamCode" data-stream-example></code></pre>
+            </div>
+          </article>
+
+          <article class="doc-card" id="topup">
+            <h2 data-zh="充值与入账" data-en="Top-up and crediting">充值与入账</h2>
+            <p data-zh="目前支持扫码付款后提交充值信息。管理员核对到账后会把余额加到你的账号里，控制台充值记录会显示待核对、已入账或已驳回。" data-en="QR payment is supported first: submit the top-up details after payment. An admin credits your balance after confirmation, and the console shows pending, credited, or rejected status.">目前支持扫码付款后提交充值信息。管理员核对到账后会把余额加到你的账号里，控制台充值记录会显示待核对、已入账或已驳回。</p>
+          </article>
+
+          <article class="doc-card" id="pricing">
+            <h2 data-zh="价格与扣费" data-en="Pricing and metering">价格与扣费</h2>
+            <p data-zh="NexaGate 使用预付费余额。每次请求会按输入和输出 tokens 扣费，余额不足时停止调用。" data-en="NexaGate uses prepaid balance. Each request is metered by input and output tokens; calls stop when balance is insufficient.">NexaGate 使用预付费余额。每次请求会按输入和输出 tokens 扣费，余额不足时停止调用。</p>
+            <div class="table-wrap">
+              <table class="pricing-table">
+                <thead>
+                  <tr><th data-zh="模型" data-en="Model">模型</th><th data-zh="输入" data-en="Input">输入</th><th data-zh="输出" data-en="Output">输出</th></tr>
+                </thead>
+                <tbody data-pricing-rows>
+                  <tr><td>deepseek-v4-flash</td><td>$0.80 / 1M tokens</td><td>$3.20 / 1M tokens</td></tr>
+                  <tr><td>deepseek-chat</td><td>$0.80 / 1M tokens</td><td>$3.20 / 1M tokens</td></tr>
+                  <tr><td>deepseek-reasoner</td><td>$1.60 / 1M tokens</td><td>$6.40 / 1M tokens</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="doc-card" id="errors">
+            <h2 data-zh="常见错误" data-en="Common errors">常见错误</h2>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th data-zh="状态码" data-en="Status">状态码</th><th data-zh="含义" data-en="Meaning">含义</th><th data-zh="处理方式" data-en="Action">处理方式</th></tr></thead>
+                <tbody>
+                  <tr><td>400</td><td data-zh="参数错误" data-en="Bad request">参数错误</td><td data-zh="检查 model、messages 和 JSON 格式。" data-en="Check model, messages, and JSON format.">检查 model、messages 和 JSON 格式。</td></tr>
+                  <tr><td>401</td><td data-zh="API Key 无效" data-en="Invalid API key">API Key 无效</td><td data-zh="重新创建或轮换 Key。" data-en="Create or rotate your key.">重新创建或轮换 Key。</td></tr>
+                  <tr><td>402</td><td data-zh="余额不足" data-en="Insufficient balance">余额不足</td><td data-zh="充值后再重试。" data-en="Add balance before retrying.">充值后再重试。</td></tr>
+                  <tr><td>403</td><td data-zh="模型未开通" data-en="Model not enabled">模型未开通</td><td data-zh="换用已开通模型，或联系管理员开通权限。" data-en="Use an enabled model or request access.">换用已开通模型，或联系管理员开通权限。</td></tr>
+                  <tr><td>429</td><td data-zh="请求过于频繁" data-en="Rate limited">请求过于频繁</td><td data-zh="降低并发，或联系管理员提高限额。" data-en="Reduce concurrency or request higher limits.">降低并发，或联系管理员提高限额。</td></tr>
+                  <tr><td>500/502</td><td data-zh="服务或上游异常" data-en="Service or upstream error">服务或上游异常</td><td data-zh="稍后重试；持续出现时带上请求时间联系支持。" data-en="Retry later; contact support with request time if it persists.">稍后重试；持续出现时带上请求时间联系支持。</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="doc-card" id="security">
+            <h2 data-zh="安全建议" data-en="Security">安全建议</h2>
+            <p data-zh="按项目创建不同 API Key，并设置合理额度。完整 Key 只在创建时显示一次，建议保存到服务端环境变量或密钥管理工具里，不要放进浏览器前端、日志、截图或公开仓库。" data-en="Create separate API keys per project and set reasonable caps. Full keys are shown only once; store them in server-side environment variables or a secret manager, not browser code, logs, screenshots, or public repos.">按项目创建不同 API Key，并设置合理额度。完整 Key 只在创建时显示一次，建议保存到服务端环境变量或密钥管理工具里，不要放进浏览器前端、日志、截图或公开仓库。</p>
+          </article>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

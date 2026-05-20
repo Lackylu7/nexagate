@@ -1,0 +1,76 @@
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: nexagate-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - APP_DOMAIN=${APP_DOMAIN:?set APP_DOMAIN}
+    volumes:
+      - ./deploy/Caddyfile.nexagate:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - nexagate-site
+    networks:
+      - ai-gateway-network
+
+  nexagate-site:
+    image: node:22-alpine
+    container_name: nexagate-site
+    restart: unless-stopped
+    working_dir: /app
+    command: ["node", "server.js"]
+    expose:
+      - "8088"
+    volumes:
+      - ./nexagate-site:/app:ro
+      - nexagate_manual_topups:/app/data
+    environment:
+      - NODE_ENV=production
+      - NEXAGATE_PORT=8088
+      - NEW_API_ORIGIN=http://new-api:3000
+      - PUBLIC_SITE_URL=${PUBLIC_SITE_URL:?set PUBLIC_SITE_URL}
+      - PUBLIC_API_BASE_URL=${PUBLIC_API_BASE_URL:?set PUBLIC_API_BASE_URL}
+      - ADMIN_BACKEND_URL=${ADMIN_BACKEND_URL:?set ADMIN_BACKEND_URL}
+      - SUPPORT_CONTACT=${SUPPORT_CONTACT:-support@nexagate.local}
+      - NEXAGATE_SESSION_SECRET=${NEXAGATE_SESSION_SECRET:?set NEXAGATE_SESSION_SECRET}
+    depends_on:
+      - new-api
+    networks:
+      - ai-gateway-network
+
+  new-api:
+    image: calciumion/new-api:latest
+    container_name: nexagate-new-api
+    restart: unless-stopped
+    command: --log-dir /app/logs
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./data:/data
+      - ./logs:/app/logs
+    environment:
+      - TZ=Asia/Shanghai
+      - FRONTEND_BASE_URL=${FRONTEND_BASE_URL:?set FRONTEND_BASE_URL}
+      - SQLITE_PATH=/data/new-api.db
+      - SESSION_SECRET=${SESSION_SECRET:?set SESSION_SECRET}
+      - CRYPTO_SECRET=${CRYPTO_SECRET:?set CRYPTO_SECRET}
+      - TRUSTED_REDIRECT_DOMAINS=${TRUSTED_REDIRECT_DOMAINS:-}
+      - ERROR_LOG_ENABLED=true
+      - BATCH_UPDATE_ENABLED=true
+      - STREAMING_TIMEOUT=300
+      - NODE_NAME=nexagate-1
+    networks:
+      - ai-gateway-network
+
+volumes:
+  caddy_data:
+  caddy_config:
+  nexagate_manual_topups:
+
+networks:
+  ai-gateway-network:
+    driver: bridge

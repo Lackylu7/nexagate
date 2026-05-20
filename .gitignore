@@ -1,0 +1,12 @@
+﻿.env
+data/
+logs/
+output/
+.playwright-cli/
+nexagate-site/data/
+nexagate-site/assets/pay-alipay.*
+nexagate-site/assets/pay-wechat.*
+nexagate-site/screenshots/
+nexagate-site/System.Drawing.Drawing2D.GraphicsPath
+node_modules/
+.DS_Store
